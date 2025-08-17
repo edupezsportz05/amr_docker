@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
-# Create non-root user
-ARG USERNAME=amr
+# Create non-root user **NOTE:Change <user_id>
+ARG USERNAME=<user_id>
 ARG UID=2500
 ARG GID=2500
 
@@ -37,8 +37,8 @@ RUN mkdir /var/run/sshd
 RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 
-# Set password for user
-RUN echo "$USERNAME:robotlab" | chpasswd
+# Set password for user **NOTE:change the password
+RUN echo "$USERNAME:<passwd>" | chpasswd
 
 # Switch to the user
 USER $USERNAME
