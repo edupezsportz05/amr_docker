@@ -22,7 +22,7 @@ RUN groupadd --gid $GID $USERNAME && \
     useradd --uid $UID --gid $GID -m $USERNAME && \
     echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# Install ROS 2 Humble
+# Install ROS 2 Jazzy
 RUN apt update && \
     apt upgrade -y && \
     apt install -y software-properties-common && \
@@ -59,14 +59,5 @@ RUN git clone https://github.com/sahana-arulanandam/amr-prototype.git
 RUN cd ~/amr-prototype/py_install && \
     sudo  python3 setup.py install
     
-RUN echo "source ~/amr-prototype/driver_ws/setup.bash" >> /etc/bash.bashrc && \
-    echo "source ~/amr-prototype/icarus_ws/setup.bash" >> /etc/bash.bashrc
-    
-# Switch back to root to run SSH
-USER root
-
-# Expose SSH port
-EXPOSE 22
-
-# Default command: start SSH
-CMD ["/usr/sbin/sshd", "-D"]
+RUN echo "source ~/amr-prototype/driver_ws/setup.bash" >> /home/$USERNAME/.bashrc && \
+    echo "source ~/amr-prototype/icarus_ws/setup.bash" >> /home/$USERNAME/.bashrc
